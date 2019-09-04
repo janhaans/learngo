@@ -26,9 +26,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if grade > 55 {
-		fmt.Println("You have passed the test")
-	} else {
-		fmt.Println("You have not passed the test")
+
+	switch {
+	case grade >= 80:
+		fmt.Println("You have passed the test. Your score was very high")
+	case grade >= 60:
+		fmt.Println("You have passed the test. Your score was good")
+	case grade >= 55:
+		fmt.Println("You just passed the test")
+	default:
+		fmt.Println("You did not pass the test")
 	}
 }
