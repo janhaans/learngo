@@ -36,8 +36,9 @@ func (p *Player) Play(c chan int) {
 
 var wg sync.WaitGroup
 
-//StartGame start a new tennis game
-func StartGame(c chan int, p1 *Player, p2 *Player) {
+//PlayTennis start a new tennis game
+func PlayTennis(c chan int, p1 *Player, p2 *Player) {
+	//Toss what player hits the first ball
 	if rand.Intn(10)%2 == 0 {
 		go p1.Play(c)
 		go p2.Play(c)
@@ -45,6 +46,7 @@ func StartGame(c chan int, p1 *Player, p2 *Player) {
 		go p2.Play(c)
 		go p1.Play(c)
 	}
+	//Start the tennis game
 	c <- 1
 }
 
@@ -64,7 +66,7 @@ func main() {
 	}
 
 	fmt.Println("The game has started")
-	StartGame(c, &player1, &player2)
+	PlayTennis(c, &player1, &player2)
 
 	wg.Wait()
 	fmt.Println("The game has finished")
