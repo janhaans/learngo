@@ -3,12 +3,16 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"flag"
 	"fmt"
 	"io"
 	"log"
 	"os"
 	"strings"
 )
+
+var dirName = flag.String("d", os.Getenv("HOME"), "Directory where csv file is placed")
+var fileName = flag.String("f", "problems.csv", "Name of csv file")
 
 type Problem struct {
 	Question string
@@ -44,7 +48,8 @@ func ReadCSV(dir string, file string) []Problem {
 }
 
 func main() {
-	problems := ReadCSV("/home/stellar/go/src/github.com/janhaans/learngo/quizz/", "problems.csv")
+	flag.Parse()
+	problems := ReadCSV(*dirName, *fileName)
 	reader := bufio.NewReader(os.Stdin)
 	var ok, nok int
 
