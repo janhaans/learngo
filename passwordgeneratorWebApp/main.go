@@ -46,7 +46,7 @@ func handleError(w http.ResponseWriter, err error) {
 }
 
 func init() {
-	tpl = template.Must(template.ParseGlob("templates/*"))
+	tpl = template.Must(template.ParseGlob(string(http.Dir("/home/stellar/go/src/github.com/janhaans/learngo/passwordgeneratorWebApp")) + "/templates/*"))
 	rand.Seed(time.Now().UnixNano())
 }
 
@@ -54,7 +54,7 @@ func main() {
 	router := httprouter.New()
 	router.GET("/", index)
 	router.GET("/passwd", passwd)
-	router.ServeFiles("/css/*filepath", http.Dir("/home/stellar/go/src/github.com/janhaans/learngo/passwordgeneratorWebApp/css"))
+	router.ServeFiles("/css/*filepath", http.Dir("/home/stellar/go/drc/github.com/janhaans/learngo/passwordgeneratorWebApp/css"))
 
 	http.ListenAndServe(":8080", router)
 }
