@@ -2,10 +2,11 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 
 	"github.com/janhaans/learngo/mvc/utils"
 
@@ -13,8 +14,8 @@ import (
 )
 
 //GetUser gets the user
-func GetUser(res http.ResponseWriter, req *http.Request) {
-	userID, err := strconv.ParseInt(req.URL.Query().Get("user_id"), 0, 64)
+func GetUser(c *gin.Context) {
+	userID, err := strconv.ParseInt(c.Param("user_id"), 0, 64)
 	if err != nil {
 		//Return status code Bad Request
 		userErr := &utils.ApplicationError{
@@ -22,23 +23,17 @@ func GetUser(res http.ResponseWriter, req *http.Request) {
 			StatusCode: http.StatusBadRequest,
 			Code:       "bad_request",
 		}
-		res.WriteHeader(userErr.StatusCode)
-		jsonValue, _ := json.Marshal(userErr)
-		res.Write(jsonValue)
+		utils.Respond(c, userErr.StatusCode, userErr)
 		return
 	}
 	fmt.Printf("About to process userid %d\n", userID)
 
 	user, userErr := services.UsersService.GetUser(userID)
 	if userErr != nil {
-		//Return stataus code Not Found
-		res.WriteHeader(userErr.StatusCode)
-		jsonValue, _ := json.Marshal(userErr)
-		res.Write(jsonValue)
+		//Return status code Not Found
+		utils.Respond(c, userErr.StatusCode, userErr)
 		return
 	}
 
-	jsonValue, _ := json.Marshal(user)
-	res.Write(jsonValue)
-
+	utils.Respond(c, http.StatusOK, user)
 }

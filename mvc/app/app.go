@@ -2,15 +2,22 @@
 package app
 
 import (
-	"net/http"
-	"github.com/janhaans/learngo/mvc/controllers"
+	"github.com/gin-gonic/gin"
 )
+
+var (
+	router *gin.Engine
+)
+
+func init() {
+	router = gin.Default()
+}
 
 //StartApp start the REST API application
 func StartApp() {
-	http.HandleFunc("/users", controllers.GetUser)
+	mapURLs()
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := router.Run(":8080"); err != nil {
 		panic(err)
 	}
 }
