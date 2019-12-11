@@ -28,3 +28,7 @@ func TestCreateRepoErrorRestClient(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.EqualValues(t, "invalid restclient response", err.Message)
 }
+
+func TestCreateRepoInvalidBody(t *testing.T) {
+
+}
