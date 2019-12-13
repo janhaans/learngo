@@ -30,3 +30,12 @@ func GetRomanNumber(c *gin.Context) {
 	c.JSON(http.StatusOK, romanNumber)
 	return
 }
+
+//OptionsRomanNumber provide options of romannumber API
+func OptionsRomanNumber(c *gin.Context) {
+	c.Header("Allow", "GET, OPTIONS")
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control_allow_headers", "origin, content-type, accept")
+	c.Header("Content-Type", "application/json")
+	c.Status(http.StatusOK)
+}
