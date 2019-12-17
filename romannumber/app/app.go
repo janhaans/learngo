@@ -4,12 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var router *gin.Engine
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	mapURL(r)
+	return r
+}
 
 //StartApp start the romannumber app
 func StartApp() {
-	router = gin.Default()
-	mapURL()
+	router := setupRouter()
 	if err := router.Run(":8080"); err != nil {
 		panic(err)
 	}
