@@ -20,5 +20,5 @@ func TestGetRomanNumberError(t *testing.T) {
 	assert.NotNil(t, err)
 	assert.EqualValues(t, "Error1", err.Code)
 	assert.EqualValues(t, http.StatusBadRequest, err.StatusCode)
-	assert.EqualValues(t, "Number is outside 1-10 range", err.Description)
+	assert.EqualValues(t, "Number is less then 1", err.Description)
 }
